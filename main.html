@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #videoPlayer {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            transition: opacity 2s ease-out;
+        }
+
+        #content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(19, 19, 19);
+            color: white;
+            font-size: 24px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        #content.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+<video id="videoPlayer" controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+
+
+<div id="content">
+    <p>Welcome to the website!</p>
+    <p>This is the actual content.</p>
+</div>
+
+<script>
+    var videoPlayer = document.getElementById('videoPlayer');
+    var audioPlayer = document.getElementById('audioPlayer');
+    var content = document.getElementById('content');
+
+    videoPlayer.addEventListener('ended', function() {
+        // Fade out the video
+        videoPlayer.style.opacity = 0;
+
+        // Display the content after the video fades out
+        setTimeout(function() {
+            content.classList.add('active');
+        }, 2000); // Adjust the time based on your fade-out duration
+    });
+
+    // Play the audio when the video starts playing
+    videoPlayer.addEventListener('play', function() {
+        audioPlayer.play();
+    });
+
+    // Pause the audio when the video is paused
+    videoPlayer.addEventListener('pause', function() {
+        audioPlayer.pause();
+    });
+
+    content.addEventListener('click', function() {
+        // Redirect to the actual website when content is clicked
+        window.location.href = 'https://example.com'; // Replace with your actual website URL
+    });
+</script>
+
+</body>
+</html>
